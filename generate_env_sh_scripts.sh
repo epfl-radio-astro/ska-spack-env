@@ -27,6 +27,9 @@ if [[ ! -d "./${SENV_NAME}" ]]; then
     exit 1
 fi
 
+# For jed
+unset SPACK_SYSTEM_CONFIG_PATH
+
 # Load spack
 source /work/ska/orliac/spack/share/spack/setup-env.sh
 which spack
@@ -35,7 +38,7 @@ spack -V
 ls -l ./${SENV_NAME}
 
 info "Activation script generation in progress... (can take a few minutes)"
-#spack env activate ${SENV_NAME} --sh -p > ./${SENV_NAME}/activate.sh
+spack env activate ${SENV_NAME} --sh -p > ./${SENV_NAME}/activate.sh
 info "Activation script generation complete."
 
 info "Activating environment ${SENV_NAME}..."
@@ -43,7 +46,7 @@ spack env activate ${SENV_NAME}
 info "Environment ${SENV_NAME} activated."
 
 info "Deactivation script generation in progress... (can take a few minutes)"
-#spack env deactivate --sh > ./${SENV_NAME}/deactivate.sh
+spack env deactivate --sh > ./${SENV_NAME}/deactivate.sh
 info "Deactivation script generation complete."
 
 info "Creating symlinks to shared space."
