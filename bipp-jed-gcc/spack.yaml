@@ -19,11 +19,10 @@ spack:
     - googletest
     - umpire
     - vc
-    - wsclean@3.2 ^cfitsio@:3 ^boost ~mpi +date_time +exception +filesystem +program_options
-      +regex~serialization +system
+    - wsclean@3.2 ^cfitsio@:3 ^boost ~mpi
   - serial_packages_python:
-    - gdb +tui +source-highlight +lto +xz ^boost ~mpi +date_time +exception +filesystem
-      +program_options +regex~serialization +system
+    - gdb +tui +source-highlight +lto +xz ^boost ~mpi +program_options +regex~serialization
+      +system
     - py-astropy@5.2.1
     - py-healpy
     - py-imot-tools@dev
@@ -34,7 +33,7 @@ spack:
     - py-wheel
     - python +tkinter +optimizations ~debug +ssl ~libxml2
   - serial_packages_python_blas:
-    - casacore
+    - casacore +openmp
     - py-matplotlib
     - py-numpy
     - py-pandas
