@@ -1,0 +1,3 @@
+gcc@9.3.0 + cuda@11.0.2  OK
+gcc@9.3.0 + cuda@11.1.0  OK
+gcc@9.3.0 + cuda@11.2.1  KO!
