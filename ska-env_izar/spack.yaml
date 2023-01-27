@@ -10,23 +10,27 @@ spack:
   - matrix:
     - [$packages]
     - [$%compilers]
-  - py-numpy@1.21.6 ^python@3.9.1 ^openblas threads=openmp
-  - py-astropy
+  - py-scipy
+  - py-numpy ^openblas threads=openmp
+  - py-astropy@5.1
   - py-matplotlib
   - py-tqdm
   - py-pyproj
   - py-healpy ^libsharp ~mpi
   - py-scikit-build
-  - py-scikit-learn
+  - py-scikit-learn ^py-setuptools@59
   - py-pandas
+  - py-pbr
+  - py-setuptools@63.0.0
   - py-wheel
   - cmake
   - py-imot-tools@dev
-  - py-pip@22.3.1
+  - py-pip
   - umpire
 
   concretizer:
-    unify: true
+    unify: when_possible
+    reuse: false
     targets:
       host_compatible: false
   config:

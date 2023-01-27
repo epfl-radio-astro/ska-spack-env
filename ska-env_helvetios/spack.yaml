@@ -1,30 +1,60 @@
 spack:
   definitions:
-  - compilers: [gcc@11.3.0]
-  - packages: [fftw ~mpi +openmp, vc, finufft]
+  - gcc_stable_compiler: [gcc@11.3.0]
+  - gcc_stable_blas_parallel: [openblas@0.3.21 threads=openmp +locking]
+  - gcc_stable_python3: [python@3.9.1 +tkinter +optimizations ~debug +ssl ~libxml2]
+  - core_packages:
+    - autoconf
+    - automake
+    - cmake
+    - git
+    - git-lfs
+    - lmod
+    - m4
+    - tar
+  - serial_packages:
+    - fftw +openmp
+    - finufft
+    - umpire
+    - vc
+  - serial_packages_python:
+    - py-astropy@5.1
+    - py-healpy
+    - py-imot-tools@dev
+    - py-pip@22.3.1
+    - py-pyproj
+    - py-scikit-build
+    - py-tqdm
+    - py-wheel
+    - python +tkinter +optimizations ~debug +ssl ~libxml2
+  - serial_packages_python_blas:
+    - casacore +openmp
+    - py-matplotlib
+    - py-numpy@1.21.6
+    - py-pandas
+    - py-xarray
+    - py-scikit-learn
+    - py-scipy@1.9.3
+
   include:
   - /work/ska/soft/spack/blackhole/v1/etc/spack/repos.yaml
 
   specs:
-  - $compilers
   - matrix:
-    - [$packages]
-    - [$%compilers]
-  - py-numpy@1.21.6 ^python@3.9.1 ^openblas threads=openmp
-  - py-astropy
-  - py-matplotlib
-  - py-tqdm
-  - py-pyproj
-  - py-healpy ^libsharp ~mpi
-  - py-scikit-build
-  - py-scikit-learn
-  - py-pandas
-  - py-wheel
-  - cmake
-  - py-imot-tools@dev
-  - py-pip@22.3.1
-  - umpire ^libiconv
-
+    - [$core_packages]
+    - [$%gcc_stable_compiler]
+  - matrix:
+    - [$serial_packages]
+    - [$%gcc_stable_compiler]
+  - matrix:
+    - [$serial_packages_python]
+    - [$^gcc_stable_python3]
+    - [$%gcc_stable_compiler]
+  - matrix:
+    - [$serial_packages_python_blas]
+    - [$^gcc_stable_python3]
+    - [$^gcc_stable_blas_parallel]
+    - [$%gcc_stable_compiler]
   concretizer:
     unify: true
     targets:
